@@ -1,0 +1,5 @@
+{
+   "input_html": "memories_history.html",
+   "exiftool" : "exiftool.exe",
+   "download_folder": "snaps"
+}

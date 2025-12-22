@@ -1,0 +1,20 @@
+[project]
+name = "snapchat-memory-loader"
+version = "0.1.0"
+description = "A robust tool to download and sync metadata for Snapchat memories."
+authors = [
+    {name = "Johann Tiderko", email = "johann@tiderko.de"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.12.0",
+    "requests>=2.32.0"
+]
+
+[tool.poetry]
+packages = [{include = "snapchat_memory_loader", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

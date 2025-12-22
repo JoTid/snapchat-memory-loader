@@ -1,0 +1,8 @@
+__init__*
+*.log
+*.txt
+.DS_Store
+.vscode/
+node_modules/
+snaps/
+*.html
