@@ -86,3 +86,17 @@ What to expect:
 * **ZIP Processing:** ZIP files are downloaded, renamed, extracted into folders, and then automatically deleted to save space.
 * **Metadata:** Timestamps are written immediately after each download or extraction.
 * **Summary:** A report will be displayed and saved to download_summary.txt once finished.
+
+## Support
+
+If this tool saved you hours of work and you'd like to support the development, feel free to buy me a beer! 🍺
+
+[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=for-the-badge&logo=paypal)](https://paypal.me/jotid)
+
+## License
+
+This project is licensed under the **GNU General Public License v3.0**.  
+See the [LICENSE](LICENSE) file for details.
+
+---
+*Disclaimer: This tool is not affiliated with, authorized, maintained, sponsored, or endorsed by Snapchat or any of its affiliates or subsidiaries.*
