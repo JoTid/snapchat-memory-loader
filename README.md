@@ -13,6 +13,8 @@ A robust Python-based tool designed to download your Snapchat memories from an e
 
 ## Requirements
 
+Note: Metadata synchronization for creation dates requires Windows (PowerShell).
+
 ### 1. Python & Poetry
 
 * **Python**: Version 3.13 or higher.
@@ -100,3 +102,7 @@ See the [LICENSE](LICENSE) file for details.
 
 ---
 *Disclaimer: This tool is not affiliated with, authorized, maintained, sponsored, or endorsed by Snapchat or any of its affiliates or subsidiaries.*
+
+
+
+Meine Tochter kam mit über 15000 snaps 🤯. Habe das Tool https://github.com/JoTid/snapchat-memory-loader verwendet um zumindest etwas automatisierung zu haben.

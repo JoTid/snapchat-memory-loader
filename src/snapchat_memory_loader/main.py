@@ -71,16 +71,41 @@ def is_zip_file(filepath):
 def set_metadata_from_filename(target_path, is_directory=False):
     """Uses ExifTool to sync timestamps."""
     try:
+        # 1. Extract date from the name
+        basename = os.path.basename(target_path)
+        match = re.search(r"(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})", basename)
+        if not match: return False
+            
+        date_str = match.group(1) # Format: 2025-11-14_11-38-59
+        # Conversion for PowerShell: 11/14/2025 11:38:59
+        dt_obj = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
+        ps_date = dt_obj.strftime("%m/%d/%Y %H:%M:%S")
+
+        # 2. ExifTool attempt (for internal metadata in JPG/MP4)
+        et_args = [ET_CMD, "-AllDates<filename", "-FileModifyDate<filename", 
+                   "-overwrite_original", "-q", "-q", target_path]
+        subprocess.run(et_args, stderr=subprocess.DEVNULL)
+
+        # 3. PowerShell Fix (Forces creation and modification date under Windows)
+        # Works for files AND folders, regardless of whether the format is 'valid'
         if is_directory:
-            date_src = os.path.basename(target_path) 
-            et_args = [ET_CMD, f"-AllDates={date_src}", f"-FileCreateDate={date_src}",
-                       f"-FileModifyDate={date_src}", "-overwrite_original", "-r", "-q", "-q", target_path]
+            # Sets date for the folder and all files in it
+            ps_cmd = (
+                f'$d = "{ps_date}"; '
+                f'Get-Item "{target_path}" | % {{ $_.CreationTime = $d; $_.LastWriteTime = $d }}; '
+                f'Get-ChildItem "{target_path}" -Recurse | % {{ $_.CreationTime = $d; $_.LastWriteTime = $d }}'
+            )
         else:
-            et_args = [ET_CMD, "-AllDates<filename", "-FileCreateDate<filename", 
-                       "-FileModifyDate<filename", "-overwrite_original", "-q", "-q", target_path]
-        subprocess.run(et_args, check=True)
+            ps_cmd = (
+                f'$d = "{ps_date}"; '
+                f'Get-Item "{target_path}" | % {{ $_.CreationTime = $d; $_.LastWriteTime = $d }}'
+            )
+        
+        subprocess.run(["powershell", "-Command", ps_cmd], capture_output=True)
+
         return True
-    except Exception:
+    except Exception as e:
+        print(f"   ⚠️ Metadata error on {basename}: {e}")
         return False
 
 def extract_sync_and_cleanup_zip(filepath, target_dir):
