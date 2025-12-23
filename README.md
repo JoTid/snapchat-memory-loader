@@ -65,8 +65,8 @@ Follow these steps to prepare your environment:
    ```JSON
    {
    "input_html": "memories_history.html",
-   "download_folder": "P:/alessia_snaps_autoload",
-   "exiftool": "D:/devtools/exiftool/exiftool-13.44_64/exiftool.exe"
+   "download_folder": "C:/my_snaps",
+   "exiftool": "C:/exiftool-13.44_64/exiftool.exe"
    }
    ```
 
